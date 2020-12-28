@@ -9,10 +9,11 @@ import {
   HomePage, Comments, LoginPage, LogoutPage, RegistrationPage,
 } from '../Pages/index';
 import { checkIfUserLogged } from '../Redux/Actions/UserActions/UserActions';
+import { isLoggedInSelector } from '../Redux/Selectors/UserSelectors';
 
 const App = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useSelector(isLoggedInSelector);
   useEffect(() => {
     if (!isLoggedIn) {
       dispatch(checkIfUserLogged());

@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Comment from '../../Components/Comments/Comment';
 import { loadComments } from '../../Redux/Actions/PostsActions/BaseActions';
 import Loader from '../../Components/Loader/Loader';
+import { commentsSelector } from '../../Redux/Selectors/PostSelectors';
+import loadingSelector from '../../Redux/Selectors/LoaderSelectors';
 
 const Comments = () => {
   const dispatch = useDispatch();
-  const commentsList = useSelector((state) => state.posts.commentsList);
-  const loading = useSelector((state) => state.loader.loading);
+  const commentsList = useSelector(commentsSelector);
+  const loading = useSelector(loadingSelector);
   useEffect(() => {
     if (!commentsList.length) {
       dispatch(loadComments());

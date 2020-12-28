@@ -7,6 +7,7 @@ import Button from '../../Components/Button/Button';
 import { EmailRegEx } from '../../App/Consts';
 import { LoginUser } from '../../Redux/Actions/UserActions/UserActions';
 import Message from '../../Components/Message/Message';
+import { messageSelector, messageTypeSelector } from '../../Redux/Selectors/UserSelectors';
 
 const LoginForm = (props) => {
   const dispatch = useDispatch();
@@ -14,8 +15,8 @@ const LoginForm = (props) => {
     dispatch(LoginUser(values));
   };
   const { handleSubmit } = props;
-  const message = useSelector((state) => state.user.message);
-  const messageType = useSelector((state) => state.user.messageType);
+  const message = useSelector(messageSelector);
+  const messageType = useSelector(messageTypeSelector);
   return (
     <div className="container pt-3">
       {message && messageType && <Message message={message} messageType={messageType} />}
