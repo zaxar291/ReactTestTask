@@ -34,7 +34,7 @@ export function addComment(comment) {
   return async (dispatch) => {
     dispatch({ type: SHOW_LOADER });
     try {
-      await HttpManager.post(ApiPostsUrl + comment.postId + ApiCommentsUrl, {
+      await HttpManager.post(`${ApiPostsUrl}/${comment.postId}${ApiCommentsUrl}`, {
         name: comment.name,
         email: comment.email,
         body: comment.body,

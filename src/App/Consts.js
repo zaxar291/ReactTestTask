@@ -1,7 +1,7 @@
 export const EmailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-export const ApiBaseUrl = 'https://gorest.co.in/public-api/';
-export const ApiPostsUrl = 'posts/';
-export const ApiCommentsUrl = '/comments/';
+export const ApiBaseUrl = 'https://gorest.co.in/public-api';
+export const ApiPostsUrl = '/posts';
+export const ApiCommentsUrl = '/comments';
 export const AuthApiBaseUrl = 'http://public-api.zzz.com.ua';
 export const AuthApiCheckUrl = '/auth.php';
 export const AuthApiRegisterUrl = '/temp.php';
