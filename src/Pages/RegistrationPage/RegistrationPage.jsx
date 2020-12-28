@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 import { useDispatch } from 'react-redux';
@@ -10,9 +11,10 @@ import { CreateUser } from '../../Redux/Actions/UserActions/UserActions';
 
 const RegistrationForm = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { handleSubmit } = props;
   const SubmitForm = (values) => {
-    dispatch(CreateUser(values));
+    dispatch(CreateUser(values, history));
   };
   return (
     <div className="container pt-3">

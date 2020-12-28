@@ -1,5 +1,5 @@
 import {
-  CREATE_USER, HIDE_MESSAGE, SHOW_MESSAGE, LOGIN_USER, USER_CHECK_STATE,
+  CREATE_USER, HIDE_MESSAGE, SHOW_MESSAGE, LOGIN_USER, USER_CHECK_STATE, LOGOUT_USER,
 } from '../../ActionTypes/Actions';
 import HttpManager from '../../../Services/ConnectionService';
 import {
@@ -9,8 +9,24 @@ import {
   AuthApiRegisterUrl,
   LocalStorageTokenItem,
 } from '../../../App/Consts';
+import { HomePageRoute } from '../../../App/Routes';
 
-export function CreateUser(user) {
+export function fireMessage(message, type) {
+  return (dispatch) => {
+    dispatch({
+      type: SHOW_MESSAGE,
+      messageType: type,
+      message,
+    });
+    setTimeout(() => {
+      dispatch({
+        type: HIDE_MESSAGE,
+      });
+    }, 10);
+  };
+}
+
+export function CreateUser(user, history) {
   return async (dispatch) => {
     try {
       HttpManager.defaults.baseURL = AuthApiBaseUrl;
@@ -29,18 +45,14 @@ export function CreateUser(user) {
         type: LOGIN_USER,
         isLoggedIn: true,
       });
-      window.location.href = '/';
+      history.push(HomePageRoute);
     } catch (e) {
-      dispatch({
-        type: SHOW_MESSAGE,
-        message: e.message,
-        messageType: 'error',
-      });
+      dispatch(fireMessage(e.message, 'error'));
     }
   };
 }
 
-export function LoginUser(user) {
+export function LoginUser(user, history) {
   return async (dispatch) => {
     try {
       const response = await HttpManager.post(AuthApiLoginUrl, {
@@ -50,67 +62,57 @@ export function LoginUser(user) {
         baseURL: AuthApiBaseUrl,
       });
       if (!response.success) {
-        dispatch({
-          type: SHOW_MESSAGE,
-          message: response.message,
-          messageType: 'error',
-        });
+        dispatch(fireMessage(response.message, 'error'));
       } else {
         localStorage.setItem(LocalStorageTokenItem, response.body.token);
-        window.location.href = '/';
+        dispatch({
+          type: LOGIN_USER,
+        });
+        history.push(HomePageRoute);
       }
     } catch (e) {
-      console.log(e);
+      dispatch(fireMessage(e.message, 'error'));
     }
   };
 }
 
 export function logoutUser() {
-  return () => {
+  return (dispatch) => {
     localStorage.removeItem(LocalStorageTokenItem);
-    window.location.href = '/';
+    dispatch({
+      type: LOGOUT_USER,
+    });
   };
 }
 
 export function checkIfUserLogged() {
   return async (dispatch) => {
-    dispatch({
-      type: USER_CHECK_STATE,
-    });
-    const token = localStorage.getItem(LocalStorageTokenItem);
-    if (token) {
-      const response = await HttpManager.post(AuthApiCheckUrl, {
-        token,
-      }, {
-        baseURL: AuthApiBaseUrl,
-      });
-      if (response.success) {
-        dispatch({
-          type: CREATE_USER,
-          user: {
-            email: response.email,
-          },
-        });
-        dispatch({
-          type: LOGIN_USER,
-          isLoggedIn: true,
-        });
-      }
-    }
-  };
-}
-
-export function fireMessage(message, type) {
-  return (dispatch) => {
-    dispatch({
-      type: SHOW_MESSAGE,
-      messageType: type,
-      message,
-    });
-    setTimeout(() => {
+    try {
       dispatch({
-        type: HIDE_MESSAGE,
+        type: USER_CHECK_STATE,
       });
-    }, 10);
+      const token = localStorage.getItem(LocalStorageTokenItem);
+      if (token) {
+        const response = await HttpManager.post(AuthApiCheckUrl, {
+          token,
+        }, {
+          baseURL: AuthApiBaseUrl,
+        });
+        if (response.success) {
+          dispatch({
+            type: CREATE_USER,
+            user: {
+              email: response.email,
+            },
+          });
+          dispatch({
+            type: LOGIN_USER,
+            isLoggedIn: true,
+          });
+        }
+      }
+    } catch (e) {
+      dispatch(fireMessage(e.message, 'error'));
+    }
   };
 }

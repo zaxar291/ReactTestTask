@@ -3,6 +3,7 @@ export const SHOW_LOADER = 'App/Loader/Show';
 export const HIDE_LOADER = 'App/Loader/Hide';
 export const CREATE_USER = 'App/Users/Create';
 export const LOGIN_USER = 'App/Users/Login';
+export const LOGOUT_USER = 'App/Users/Logout';
 export const USER_CHECK_STATE = 'App/Users/Check';
 export const SHOW_MESSAGE = 'App/Message/Fire';
 export const HIDE_MESSAGE = 'App/Message/Hide';

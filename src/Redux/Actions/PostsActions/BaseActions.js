@@ -12,7 +12,12 @@ export function loadPosts() {
       dispatch({ type: LOAD_POSTS, posts });
       dispatch({ type: HIDE_LOADER });
     } catch (e) {
-      console.log(e);
+      dispatch({
+        type: SHOW_MESSAGE,
+        message: e.message,
+        messageType: 'error',
+      });
+      dispatch({ type: HIDE_LOADER });
     }
   };
 }
@@ -25,7 +30,12 @@ export function loadComments() {
       dispatch({ type: LOAD_COMMENTS, comments });
       dispatch({ type: HIDE_LOADER });
     } catch (e) {
-      console.log(e);
+      dispatch({
+        type: SHOW_MESSAGE,
+        message: e.message,
+        messageType: 'error',
+      });
+      dispatch({ type: HIDE_LOADER });
     }
   };
 }
@@ -42,7 +52,12 @@ export function addComment(comment) {
       dispatch({ type: HIDE_LOADER });
       dispatch({ type: SHOW_MESSAGE, message: 'Comment successfully added!', messageType: 'success' });
     } catch (e) {
-      console.log(e);
+      dispatch({
+        type: SHOW_MESSAGE,
+        message: e.message,
+        messageType: 'error',
+      });
+      dispatch({ type: HIDE_LOADER });
     }
   };
 }

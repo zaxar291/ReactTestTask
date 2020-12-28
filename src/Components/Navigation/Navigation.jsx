@@ -1,12 +1,19 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  HomePageRoute, CommentsPageRoute, LoginPageRoute, RegistrationPageRoute, LogoutPageRoute,
+  HomePageRoute, CommentsPageRoute, LoginPageRoute, RegistrationPageRoute,
 } from '../../App/Routes';
+import { logoutUser } from '../../Redux/Actions/UserActions/UserActions';
 
 const Navigation = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const logoutCurrentUser = () => {
+    history.push(HomePageRoute);
+    dispatch(logoutUser());
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <NavLink to={HomePageRoute} className="navbar-brand">Main</NavLink>
@@ -37,7 +44,7 @@ const Navigation = () => {
           <li className="nav-item">
             <NavLink to={CommentsPageRoute} className="nav-link">Comments</NavLink>
           </li>
-          {isLoggedIn && <li className="nav-item"><NavLink to={LogoutPageRoute} className="nav-link">Logout</NavLink></li> }
+          {isLoggedIn && <li className="nav-item"><NavLink to="" onClick={logoutCurrentUser} className="nav-link">Logout</NavLink></li> }
         </ul>
       </div>
     </nav>

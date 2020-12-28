@@ -1,19 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
-// import { addComment } from '../../Redux/Actions/PostsActions/BaseActions';
+import { addComment } from '../../Redux/Actions/PostsActions/BaseActions';
 
 const PostComment = (props) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { handleSubmit, postId } = props;
   const SubmitForm = (values) => {
     // eslint-disable-next-line no-param-reassign
     values.postId = postId;
-    console.log(values);
-    // dispatch(addComment(values));
+    dispatch(addComment(values));
   };
   return (
     <div className="accordion">

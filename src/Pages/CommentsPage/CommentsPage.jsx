@@ -22,7 +22,8 @@ const Comments = () => {
   }
 
   return commentsList.map(
-    (comment) => <Comment name={comment.name} email={comment.email} body={comment.body} />,
+    // eslint-disable-next-line max-len
+    (comment) => <Comment name={comment.name} email={comment.email} body={comment.body} key={comment.id} />,
   );
 };
 

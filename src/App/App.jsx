@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Navigation from '../Components/Navigation/Navigation';
 import {
-  HomePageRoute, CommentsPageRoute, RegistrationPageRoute, LoginPageRoute, LogoutPageRoute,
+  HomePageRoute, CommentsPageRoute, RegistrationPageRoute, LoginPageRoute,
 } from './Routes';
 import {
-  HomePage, Comments, LoginPage, LogoutPage, RegistrationPage,
+  HomePage, Comments, LoginPage, RegistrationPage,
 } from '../Pages/index';
 import { checkIfUserLogged } from '../Redux/Actions/UserActions/UserActions';
 import { isLoggedInSelector } from '../Redux/Selectors/UserSelectors';
@@ -39,9 +39,6 @@ const App = () => {
             </Route>
             <Route path={CommentsPageRoute}>
               <Comments />
-            </Route>
-            <Route path={LogoutPageRoute}>
-              <LogoutPage />
             </Route>
           </Switch>
         </div>

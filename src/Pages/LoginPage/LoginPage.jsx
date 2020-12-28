@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../Components/Input/Input';
@@ -11,8 +12,9 @@ import { messageSelector, messageTypeSelector } from '../../Redux/Selectors/User
 
 const LoginForm = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const SubmitForm = (values) => {
-    dispatch(LoginUser(values));
+    dispatch(LoginUser(values, history));
   };
   const { handleSubmit } = props;
   const message = useSelector(messageSelector);

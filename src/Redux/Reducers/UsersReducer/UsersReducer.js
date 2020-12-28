@@ -1,5 +1,5 @@
 import {
-  HIDE_MESSAGE, SHOW_MESSAGE, CREATE_USER, LOGIN_USER,
+  HIDE_MESSAGE, SHOW_MESSAGE, CREATE_USER, LOGIN_USER, LOGOUT_USER,
 } from '../../ActionTypes/Actions';
 
 const defaultState = {
@@ -19,6 +19,8 @@ const UsersReducer = (state = defaultState, action) => {
       return { ...state, user: action.user };
     case LOGIN_USER:
       return { ...state, isLoggedIn: true };
+    case LOGOUT_USER:
+      return { ...state, isLoggedIn: false };
     default:
       return state;
   }
