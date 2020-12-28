@@ -1,9 +1,9 @@
-import { useDispatch } from "react-redux";
-import { logoutUser } from "../../Redux/Actions/UserActions/UserActions";
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../Redux/Actions/UserActions/UserActions';
 
 const LogoutPage = () => {
-    const dispatch = useDispatch()
-    dispatch(logoutUser())
-}
+  const dispatch = useDispatch();
+  dispatch(logoutUser());
+};
 
-export default LogoutPage
+export default LogoutPage;
